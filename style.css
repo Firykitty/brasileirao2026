@@ -1,0 +1,903 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+    color: #f1f5f9;
+    min-height: 100vh;
+    padding: 10px;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: rgba(30, 41, 59, 0.8);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Header */
+header {
+    text-align: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #334155;
+}
+
+header h1 {
+    color: #60a5fa;
+    margin-bottom: 15px;
+    font-size: 1.8em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.round-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.round-display {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: rgba(30, 41, 59, 0.9);
+    padding: 12px 20px;
+    border-radius: 10px;
+    border: 2px solid #475569;
+}
+
+.round-box {
+    text-align: center;
+    min-width: 180px;
+}
+
+.round-number {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #fbbf24;
+}
+
+.turn-indicator {
+    font-size: 0.9em;
+    color: #94a3b8;
+    margin-top: 3px;
+}
+
+.btn-nav {
+    background: #3b82f6;
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-nav:hover {
+    background: #2563eb;
+    transform: scale(1.1);
+}
+
+/* Control Panel */
+.control-panel {
+    background: rgba(30, 41, 59, 0.9);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    border: 1px solid #475569;
+}
+
+.button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.btn-action {
+    background: linear-gradient(to right, #3b82f6, #60a5fa);
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+    min-width: 160px;
+    justify-content: center;
+}
+
+.btn-action:hover {
+    background: linear-gradient(to right, #2563eb, #3b82f6);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.3);
+}
+
+.btn-action:disabled {
+    background: #475569;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.btn-action:disabled:hover {
+    transform: none;
+    box-shadow: none;
+}
+
+/* Match Input */
+.match-selector {
+    width: 100%;
+    padding: 12px;
+    border-radius: 8px;
+    border: 2px solid #475569;
+    background: #1e293b;
+    color: white;
+    font-size: 1em;
+    margin-bottom: 20px;
+}
+
+.score-input {
+    width: 60px;
+    height: 50px;
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+    border: 2px solid #475569;
+    background: #1e293b;
+    color: white;
+    border-radius: 8px;
+}
+
+.score-input::placeholder {
+    color: #64748b;
+    font-size: 0.9em;
+}
+
+.btn-confirm {
+    background: linear-gradient(to right, #10b981, #34d399);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-top: 20px;
+    width: 100%;
+    transition: all 0.3s;
+}
+
+.btn-confirm:hover {
+    background: linear-gradient(to right, #059669, #10b981);
+    transform: translateY(-2px);
+}
+
+.label-side {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    color: #94a3b8;
+}
+
+/* Rodada Concluída - Estilo Especial */
+.rodada-concluida {
+    text-align: center;
+    padding: 30px;
+    background: rgba(30, 41, 59, 0.9);
+    border: 2px solid #475569;
+    border-radius: 15px;
+    color: #f1f5f9;
+}
+
+.rodada-concluida h2 {
+    color: #fbbf24;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+.stat-box {
+    background: rgba(15, 23, 42, 0.7);
+    padding: 15px;
+    border-radius: 10px;
+    min-width: 100px;
+}
+
+.stat-number {
+    font-size: 2em;
+    font-weight: bold;
+    color: #60a5fa;
+}
+
+.stat-label {
+    font-size: 0.8em;
+    color: #94a3b8;
+    margin-top: 5px;
+}
+
+.titulo-badge {
+    padding: 8px 15px;
+    border-radius: 20px;
+    font-size: 0.85em;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Table */
+.table-container {
+    overflow-x: auto;
+    background: rgba(15, 23, 42, 0.9);
+    border-radius: 12px;
+    padding: 15px;
+    border: 1px solid #475569;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+th {
+    background: #334155;
+    padding: 12px;
+    text-align: center;
+    border-bottom: 3px solid #475569;
+    color: #e2e8f0;
+}
+
+td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #334155;
+    transition: background 0.3s;
+}
+
+tr:hover {
+    background: rgba(56, 71, 92, 0.5);
+}
+
+/* Classification Colors */
+.g4 {
+    background: rgba(59, 130, 246, 0.15) !important;
+    border-left: 4px solid #3b82f6;
+}
+
+.pre-libertadores {
+    background: rgba(250, 123, 23, 0.15) !important;
+    border-left: 4px solid #fa7b17;
+}
+
+.sul-americana {
+    background: rgba(52, 168, 83, 0.15) !important;
+    border-left: 4px solid #34a853;
+}
+
+.z4 {
+    background: rgba(239, 68, 68, 0.15) !important;
+    border-left: 4px solid #ef4444;
+}
+
+.campeao-extra {
+    background: linear-gradient(90deg, rgba(245, 158, 11, 0.2), rgba(245, 158, 11, 0.1)) !important;
+    border-left: 4px solid #f59e0b;
+}
+
+.row-highlight {
+    animation: pulseHighlight 2s infinite;
+    position: relative;
+}
+
+@keyframes pulseHighlight {
+    0% { background-color: rgba(245, 158, 11, 0.2); }
+    50% { background-color: rgba(245, 158, 11, 0.4); }
+    100% { background-color: rgba(245, 158, 11, 0.2); }
+}
+
+.table-logo {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+/* Champion Select */
+.champion-select {
+    flex: 1;
+    min-width: 180px;
+}
+
+.champion-select label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    color: #94a3b8;
+}
+
+.champion-select select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #475569;
+    background: #1e293b;
+    color: white;
+}
+
+/* Save/Load */
+.save-load {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.btn-save, .btn-load, .btn-danger {
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-save {
+    background: #3b82f6;
+    color: white;
+}
+
+.btn-load {
+    background: #8b5cf6;
+    color: white;
+    cursor: pointer;
+    position: relative;
+}
+
+.btn-load input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.btn-danger {
+    background: #ef4444;
+    color: white;
+}
+
+.btn-save:hover { background: #2563eb; }
+.btn-load:hover { background: #7c3aed; }
+.btn-danger:hover { background: #dc2626; }
+
+/* ========== MODAIS ========== */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(5px);
+    overflow-y: auto;
+    padding: 20px 0;
+}
+
+.modal-content {
+    background: #1e293b;
+    margin: 2% auto;
+    padding: 25px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 500px;
+    border: 2px solid #475569;
+    position: relative;
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+/* Modal de Resultados (MAIS LARGO) */
+.results-modal {
+    max-width: 800px !important; /* Aumentado de 700px para 800px */
+    width: 95% !important;
+}
+
+/* Modal Largo */
+.wide-modal {
+    max-width: 700px;
+}
+
+/* Modal de Créditos */
+.credits-modal {
+    max-width: 500px;
+}
+
+.close {
+    color: #94a3b8;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    z-index: 10;
+}
+
+.close:hover {
+    color: white;
+}
+
+/* Result Cards (2 colunas) */
+.transparent-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: rgba(30, 41, 59, 0.7);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #475569;
+    min-height: 60px;
+}
+
+.mini-logo {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.res-score-box {
+    background: #334155;
+    padding: 6px 15px;
+    border-radius: 6px;
+    font-weight: bold;
+    font-size: 1em;
+    min-width: 80px;
+    text-align: center;
+}
+
+.outline {
+    border: 2px solid #60a5fa;
+    color: #60a5fa;
+}
+
+.adiado {
+    border: 2px solid #f59e0b;
+    color: #f59e0b;
+    background: rgba(245, 158, 11, 0.1);
+}
+
+.res-team-name {
+    flex: 1;
+    font-weight: bold;
+    font-size: 0.9em;
+}
+
+.left { text-align: right; }
+.right { text-align: left; }
+
+/* Team Selection Grid */
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.team-card {
+    background: rgba(30, 41, 59, 0.7);
+    border-radius: 10px;
+    padding: 15px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s;
+    border: 2px solid transparent;
+}
+
+.team-card:hover {
+    border-color: #3b82f6;
+    transform: translateY(-5px);
+    background: rgba(59, 130, 246, 0.2);
+}
+
+.selection-logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    margin: 0 auto 10px;
+}
+
+/* Campaign Modal */
+.turno-container-box {
+    background: rgba(30, 41, 59, 0.7);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #475569;
+}
+
+.resultado-com-escudos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.escudo-mini-campanha {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+}
+
+.rodada-indicador {
+    font-size: 0.7em;
+    color: #94a3b8;
+    background: #334155;
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+.btn-back {
+    background: #475569;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Status Badges */
+.status-champion {
+    background: linear-gradient(to right, #3b82f6, #60a5fa);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: bold;
+    display: inline-block;
+    margin: 2px;
+}
+
+.status-sul-americana {
+    background: linear-gradient(to right, #34a853, #10b981);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: bold;
+    display: inline-block;
+    margin: 2px;
+}
+
+.status-pre-libertadores {
+    background: linear-gradient(to right, #fa7b17, #f59e0b);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: bold;
+    display: inline-block;
+    margin: 2px;
+}
+
+.status-relegated {
+    background: linear-gradient(to right, #ef4444, #f87171);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: bold;
+    display: inline-block;
+    margin: 2px;
+}
+
+.status-campeao-copa {
+    background: linear-gradient(to right, #f59e0b, #fbbf24);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-size: 0.8em;
+    font-weight: bold;
+    display: inline-block;
+    margin: 2px;
+}
+
+/* ========== MODAL ADIAR JOGO ========== */
+.jogos-lista {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.jogo-option {
+    background: rgba(30, 41, 59, 0.7);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #475569;
+}
+
+.jogo-option label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    width: 100%;
+}
+
+.jogo-option input[type="radio"] {
+    margin-right: 10px;
+}
+
+.escudo-mini {
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+}
+
+/* ========== MODAL CRÉDITOS (COM FOTO) ========== */
+.credits-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto 15px;
+    border: 3px solid #3b82f6;
+}
+
+.profile-pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.developer-name {
+    font-size: 1.2em;
+    color: #60a5fa;
+    margin-bottom: 10px;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.social-btn {
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s;
+}
+
+.social-btn.instagram {
+    background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+    color: white;
+}
+
+.social-btn.github {
+    background: #333;
+    color: white;
+}
+
+.social-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.project-info {
+    background: rgba(30, 41, 59, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.feature {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: rgba(15, 23, 42, 0.5);
+    border-radius: 8px;
+}
+
+.feature i {
+    color: #60a5fa;
+    font-size: 1.2em;
+}
+
+.rules-section {
+    background: rgba(30, 41, 59, 0.7);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.rules-section ul {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.rules-section li {
+    margin-bottom: 8px;
+    color: #94a3b8;
+}
+
+.footer-credits {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #334155;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #334155;
+    color: #94a3b8;
+    font-size: 0.9em;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .results-modal {
+        max-width: 95% !important;
+        width: 95% !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+    
+    header h1 {
+        font-size: 1.4em;
+    }
+    
+    .button-group {
+        flex-direction: column;
+    }
+    
+    .btn-action {
+        width: 100%;
+        min-width: auto;
+    }
+    
+    .team-grid {
+        grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+    }
+    
+    .round-display {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px;
+    }
+    
+    .round-box {
+        min-width: auto;
+    }
+    
+    .save-load {
+        flex-direction: column;
+    }
+    
+    .btn-save, .btn-load, .btn-danger {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .champion-select {
+        min-width: 100%;
+    }
+    
+    .modal-content {
+        margin: 5% auto;
+        width: 95%;
+        padding: 20px;
+    }
+    
+    .results-modal, .wide-modal {
+        max-width: 95% !important;
+        width: 95% !important;
+    }
+    
+    .credits-modal {
+        max-width: 95% !important;
+    }
+    
+    .social-links {
+        flex-direction: column;
+    }
+    
+    .social-btn {
+        justify-content: center;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        padding: 15px;
+    }
+    
+    .credits-modal {
+        padding: 15px;
+    }
+    
+    .results-modal {
+        max-width: 98% !important;
+        width: 98% !important;
+        padding: 15px !important;
+    }
+    
+    .profile-pic {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .transparent-card {
+        flex-direction: column;
+        gap: 5px;
+        padding: 10px;
+    }
+    
+    .res-team-name {
+        text-align: center !important;
+        width: 100%;
+    }
+}

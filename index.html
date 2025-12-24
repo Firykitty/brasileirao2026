@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brasileirão 2026 | Simulador</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="shortcut icon" href="img/Icon.png" typr="image/x-icon">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-futbol"></i> SIMULADOR BRASILEIRÃO 2026</h1>
+            <div class="round-info">
+                <div class="round-display">
+                    <button class="btn-nav" onclick="prevRound()" id="btnPrev"><i class="fas fa-arrow-left"></i></button>
+                    <div class="round-box">
+                        <div class="round-number">Rodada <span id="round">0</span></div>
+                        <div class="turn-indicator" id="turnLabel">Pré-Campeonato</div>
+                    </div>
+                    <button class="btn-nav" onclick="nextRound()" id="btnNext"><i class="fas fa-arrow-right"></i></button>
+                </div>
+            </div>
+        </header>
+
+        <main>
+            <div class="control-panel">
+                <div class="button-group">
+                    <button onclick="openSelectionModal('highlight')" class="btn-action" id="btnHighlight">
+                        🎯 Destacar Time
+                    </button>
+                    <button onclick="openSelectionModal('campaign')" class="btn-action">
+                        📊 Ver Campanha
+                    </button>
+                    <button onclick="openModal()" class="btn-action">
+                        📋 Ver Resultados
+                    </button>
+                    <button onclick="openCreditsModal()" class="btn-action">
+                        <i class="fas fa-info-circle"></i> Créditos
+                    </button>
+                    <button onclick="abrirModalAdiarJogo()" class="btn-action" id="btnAdiar" style="display: none;">
+                        <i class="fas fa-clock"></i> Adiar Jogo
+                    </button>
+                </div>
+
+                <div id="matchInput">
+                    <!-- Aqui será inserido dinamicamente o seletor de jogos -->
+                </div>
+
+                <div id="extraChampions" style="display: none; margin-top: 20px;">
+                    <h3><i class="fas fa-trophy"></i> Campeões de Copas 2026</h3>
+                    <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 10px;">
+                        <div class="champion-select">
+                            <label><i class="fas fa-globe-americas" style="color:#3b82f6;"></i> Libertadores</label>
+                            <select id="winnerLib" onchange="updateUI()">
+                                <option value="">---</option>
+                            </select>
+                        </div>
+                        <div class="champion-select">
+                            <label><i class="fas fa-globe-americas" style="color:#34a853;"></i> Sul-Americana</label>
+                            <select id="winnerSula" onchange="updateUI()">
+                                <option value="">---</option>
+                            </select>
+                        </div>
+                        <div class="champion-select">
+                            <label><i class="fas fa-trophy" style="color:#f59e0b;"></i> Copa do Brasil</label>
+                            <select id="winnerCDB" onchange="updateUI()">
+                                <option value="">---</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="classificationInfo" style="margin-top: 15px; text-align: center; font-size: 0.85em;">
+                    <!-- Informações de classificação serão inseridas aqui -->
+                </div>
+
+                <div class="save-load">
+                    <button onclick="saveStats()" class="btn-save"><i class="fas fa-save"></i> Salvar</button>
+                    <label class="btn-load">
+                        <i class="fas fa-folder-open"></i> Importar
+                        <input type="file" accept=".json" onchange="importStats(this)" style="display: none;">
+                    </label>
+                    <button onclick="resetRound()" class="btn-danger"><i class="fas fa-undo"></i> Zerar Rodada</button>
+                    <button onclick="resetAll()" class="btn-danger"><i class="fas fa-trash"></i> Resetar Tudo</button>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table id="table">
+                    <!-- A tabela será gerada dinamicamente aqui -->
+                </table>
+            </div>
+        </main>
+
+        <footer>
+            <p style="font-size: 0.8em; color: #94a3b8;">
+                <i class="fas fa-keyboard"></i> Dica: Use as setas ← → do teclado para navegar | 
+                <i class="fas fa-clock"></i> Jogos podem ser adiados | 
+                <i class="fas fa-download"></i> Dados oficiais da CBF
+            </p>
+        </footer>
+    </div>
+
+    <!-- Modal de Resultados da Rodada (2 COLUNAS) -->
+    <div id="resultsModal" class="modal">
+        <div class="modal-content results-modal">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle">Rodada X</h2>
+            <div id="modalList">
+                <!-- Resultados serão inseridos aqui -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Seleção de Time -->
+    <div id="selectionModal" class="modal">
+        <div class="modal-content wide-modal">
+            <span class="close" onclick="closeSelectionModal()">&times;</span>
+            <h2 id="selectionTitle">Selecionar Time</h2>
+            <div id="selectionGrid" class="team-grid">
+                <!-- Times serão inseridos aqui -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Campanha do Time -->
+    <div id="campaignModal" class="modal">
+        <div class="modal-content wide-modal">
+            <span class="close" onclick="closeCampaignModal()">&times;</span>
+            <button onclick="backToSelection()" class="btn-back"><i class="fas fa-arrow-left"></i> Voltar</button>
+            <div id="campaignDetails">
+                <!-- Detalhes da campanha serão inseridos aqui -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Adiar Jogo -->
+    <div id="adiarModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharModalAdiar()">&times;</span>
+            <h2><i class="fas fa-clock"></i> Adiar Jogo</h2>
+            <p style="color: #94a3b8; margin-bottom: 20px;">Selecione um jogo para adiar:</p>
+            
+            <div id="jogosDisponiveis" class="jogos-lista">
+                <!-- Jogos disponíveis para adiar -->
+            </div>
+            
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button onclick="adiarJogoSelecionado()" class="btn-confirm" id="btnAdiarJogo">
+                    <i class="fas fa-clock"></i> Adiar Jogo
+                </button>
+                <button onclick="simularJogoAdiado()" class="btn-action" id="btnSimularAdiado">
+                    <i class="fas fa-play"></i> Simular Jogo Adiado
+                </button>
+            </div>
+            
+            <div style="margin-top: 15px; padding: 10px; background: rgba(30, 41, 59, 0.7); border-radius: 8px;">
+                <p style="font-size: 0.9em; color: #94a3b8;">
+                    <i class="fas fa-info-circle"></i> Jogos adiados: <strong id="contadorAdiados">0</strong>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Simular Jogo Adiado -->
+    <div id="simularAdiadoModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="fecharModalSimularAdiado()">&times;</span>
+            <div id="jogoAdiadoInfo">
+                <!-- Informações do jogo adiado -->
+            </div>
+            <button onclick="confirmarJogoAdiado()" class="btn-confirm" style="width: 100%;">
+                <i class="fas fa-check"></i> Confirmar Resultado
+            </button>
+        </div>
+    </div>
+
+    <!-- Modal de Créditos (COM FOTO E REDES SOCIAIS) -->
+    <div id="creditsModal" class="modal">
+        <div class="modal-content credits-modal">
+            <span class="close" onclick="closeCreditsModal()">&times;</span>
+            <div class="credits-header">
+                <div class="profile-pic">
+                    <img src="img/fotodev.png" alt="Desenvolvedor" onerror="this.src='https://via.placeholder.com/100/1e293b/60a5fa?text=DEV'">
+                </div>
+                <h2><i class="fas fa-code"></i> Desenvolvedor</h2>
+                <p class="developer-name">Cawan Richard</p>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://www.instagram.com/firy_cn/" target="_blank" class="social-btn instagram">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+                <a href="https://github.com/Firykitty" target="_blank" class="social-btn github">
+                    <i class="fab fa-github"></i> GitHub
+                </a>
+            </div>
+            
+            <div class="project-info">
+                <h3><i class="fas fa-futbol"></i> Sobre o Projeto</h3>
+                <p>Simulador completo do Brasileirão 2026 desenvolvido com HTML, CSS e JavaScript puro.</p>
+                
+                <div class="features-grid">
+                    <div class="feature">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>38 Rodadas</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-trophy"></i>
+                        <span>Classificação Dinâmica</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Estatísticas Detalhadas</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-save"></i>
+                        <span>Salvamento</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="rules-section">
+                <h3><i class="fas fa-rules"></i> Regras de Classificação</h3>
+                <ul>
+                    <li><strong>G4 + campeões Libertadores/Copa do Brasil</strong> → Libertadores</li>
+                    <li><strong>G5</strong> → Pré-Libertadores</li>
+                    <li><strong>G6-G11 + campeão Sul-Americana</strong> → Sul-Americana</li>
+                    <li><strong>Z4 (17º-20º)</strong> → Rebaixamento</li>
+                    <li><strong style="color:#fbbf24;">⭐ Vagas Extras:</strong> Se time classificado ganha copa, vaga expande para G5, G6 ou G7</li>
+                </ul>
+            </div>
+            
+            <div class="footer-credits">
+                <p><i class="fas fa-heart" style="color: #ef4444;"></i> Desenvolvido com paixão pelo futebol brasileiro</p>
+                <p style="font-size: 0.8em; color: #94a3b8; margin-top: 5px;">
+                    &copy; 2025 - Todos os direitos reservados
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Incluir os scripts -->
+    <script src="matches_data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
