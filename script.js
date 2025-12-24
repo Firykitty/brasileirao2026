@@ -1067,13 +1067,22 @@ function addMatch() {
     if (idx === "") return;
     
     const match = matchesByRound[currentRound][idx];
-    match.ga = Math.max(0, parseInt(document.getElementById("goalsA").value) || 0);
-    match.gb = Math.max(0, parseInt(document.getElementById("goalsB").value) || 0);
+    
+    // Pega os valores, tratando campos vazios como 0
+    const goalsAInput = document.getElementById("goalsA");
+    const goalsBInput = document.getElementById("goalsB");
+    
+    // Se o campo estiver vazio, considera como 0
+    const ga = goalsAInput.value === "" ? 0 : Math.max(0, parseInt(goalsAInput.value) || 0);
+    const gb = goalsBInput.value === "" ? 0 : Math.max(0, parseInt(goalsBInput.value) || 0);
+    
+    match.ga = ga;
+    match.gb = gb;
     match.saved = true;
     
-    // Limpa os inputs
-    document.getElementById("goalsA").value = "0";
-    document.getElementById("goalsB").value = "0";
+    // Restaura os valores para 0 se estiverem vazios
+    goalsAInput.value = ga;
+    goalsBInput.value = gb;
     
     // Atualiza a interface
     updateUI();
